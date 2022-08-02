@@ -1,10 +1,10 @@
 package com.project.todolist.fragments.list
 
 import android.os.Bundle
+import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.project.todolist.R
@@ -30,6 +30,24 @@ class ListFragment : Fragment() {
             findNavController().navigate(R.id.action_listFragment_to_updateFragment)
         }
 
+        // Set Menu
+        // used to give menu in a specific fragment of an activity
+        val menuHost: MenuHost = requireActivity()
+        setMenu(menuHost)
+
         return view
+    }
+
+    // function which sets the menu in the fragment
+    private fun setMenu(menuHost: MenuHost){
+        menuHost.addMenuProvider(object : MenuProvider{
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.list_fragment_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
