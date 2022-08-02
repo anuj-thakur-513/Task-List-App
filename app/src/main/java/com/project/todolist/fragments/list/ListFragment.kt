@@ -31,23 +31,13 @@ class ListFragment : Fragment() {
         }
 
         // Set Menu
-        // used to give menu in a specific fragment of an activity
-        val menuHost: MenuHost = requireActivity()
-        setMenu(menuHost)
+        setHasOptionsMenu(true)
 
         return view
     }
 
     // function which sets the menu in the fragment
-    private fun setMenu(menuHost: MenuHost){
-        menuHost.addMenuProvider(object : MenuProvider{
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.list_fragment_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                TODO("Not yet implemented")
-            }
-        })
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.list_fragment_menu, menu)
     }
 }
