@@ -14,6 +14,8 @@ abstract class ToDoDatabase: RoomDatabase() {
     // we create this as companion object because we do not want to create more than one instance
     // for our application
     companion object{
+        // volatile annotation specifies that the variable is immediately made visible to other
+        // threads
         @Volatile
         private var INSTANCE: ToDoDatabase? = null
 
