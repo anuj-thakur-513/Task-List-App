@@ -1,6 +1,7 @@
 package com.project.todolist.data
 
 import androidx.room.TypeConverter
+import com.project.todolist.data.models.Priority
 
 class Converter {
     // TypeConverter annotation is added here to tell ROOM that this function is used for type
@@ -11,7 +12,7 @@ class Converter {
     }
 
     @TypeConverter
-    fun toPriority(priority: String): Priority{
+    fun toPriority(priority: String): Priority {
         return Priority.valueOf(priority)
     }
 }

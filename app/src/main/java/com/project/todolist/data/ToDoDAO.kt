@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.project.todolist.data.models.ToDoData
 
 // this class is responsible for defining the methods to access the database
 @Dao
