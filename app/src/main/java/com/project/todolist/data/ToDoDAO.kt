@@ -11,7 +11,7 @@ import com.project.todolist.data.models.ToDoData
 @Dao
 interface ToDoDAO {
     // it will return list of ToDoData wrapped inside live data so we can update in realtime
-    @Query("SELECT * FROM todo_table ORDER_BY id ASC")
+    @Query("SELECT * FROM todo_table ORDER BY id ASC")
     fun getAllData(): LiveData<List<ToDoData>>
 
     // OnConflictStrategy handles the situation when same data is entered again
