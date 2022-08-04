@@ -29,6 +29,9 @@ class AddFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add, container, false)
 
+        // setting the listener for the spinner from the shared view model
+        view.priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
+
         // set menu
         setHasOptionsMenu(true)
 
