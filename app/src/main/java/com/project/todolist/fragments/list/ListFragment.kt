@@ -3,6 +3,7 @@ package com.project.todolist.fragments.list
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,13 +18,11 @@ import com.project.todolist.data.models.ToDoData
 import com.project.todolist.data.viewmodel.ToDoViewModel
 import com.project.todolist.fragments.SharedViewModel
 import com.project.todolist.fragments.list.adapter.ListAdapter
-import jp.wasabeef.recyclerview.animators.LandingAnimator
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     // access to view model
     private val mToDoViewModel: ToDoViewModel by viewModels()
@@ -82,6 +81,12 @@ class ListFragment : Fragment() {
     // function which sets the menu in the fragment
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu, menu)
+
+        // setting up the search view
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -146,4 +151,33 @@ class ListFragment : Fragment() {
         }
         snackBar.show()
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null){
+            searchThroughDatabase(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null){
+            searchThroughDatabase(query)
+        }
+        return true
+    }
+
+    private fun searchThroughDatabase(query: String) {
+        // query is passed between % signs (SQL syntax)
+        val finalQuery = query.trim()
+        val searchQuery = "%$finalQuery%"
+
+        // as we receive live data, hence we use observer to observe the live data and then
+        // update the adapter
+        mToDoViewModel.searchDatabase(searchQuery).observe(this, Observer { list ->
+            list?.let {
+                adapter.setData(it)
+            }
+        })
+    }
+
 }
