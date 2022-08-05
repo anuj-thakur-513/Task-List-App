@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.project.todolist.fragments.list.ListFragment"
+        android:name="com.project.tasklist.fragments.list.ListFragment"
         android:label="ToDo List">
         <action
             android:id="@+id/action_listFragment_to_addFragment"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.project.todolist.fragments.add.AddFragment"
+        android:name="com.project.tasklist.fragments.add.AddFragment"
         android:label="Add Task">
         <action
             android:id="@+id/action_addFragment_to_listFragment"
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
-        android:name="com.project.todolist.fragments.update.UpdateFragment"
+        android:name="com.project.tasklist.fragments.update.UpdateFragment"
         android:label="Update Task">
         <action
             android:id="@+id/action_updateFragment_to_listFragment"

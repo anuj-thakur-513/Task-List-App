@@ -1,4 +1,4 @@
-package com.project.todolist
+package com.project.tasklist
 
 import org.junit.Test
 

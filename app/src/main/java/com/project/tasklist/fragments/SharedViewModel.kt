@@ -1,4 +1,4 @@
-package com.project.todolist.fragments
+package com.project.tasklist.fragments
 
 import android.app.Application
 import android.text.TextUtils
@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.project.tasklist.data.models.Priority
+import com.project.tasklist.data.models.ToDoData
 import com.project.todolist.R
-import com.project.todolist.data.models.Priority
-import com.project.todolist.data.models.ToDoData
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 

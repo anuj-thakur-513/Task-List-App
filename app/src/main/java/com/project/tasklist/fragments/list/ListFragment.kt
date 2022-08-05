@@ -1,4 +1,4 @@
-package com.project.todolist.fragments.list
+package com.project.tasklist.fragments.list
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -11,11 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import com.google.android.material.snackbar.Snackbar
+import com.project.tasklist.data.models.ToDoData
+import com.project.tasklist.data.viewmodel.ToDoViewModel
+import com.project.tasklist.fragments.SharedViewModel
+import com.project.tasklist.fragments.list.adapter.ListAdapter
 import com.project.todolist.R
-import com.project.todolist.data.models.ToDoData
-import com.project.todolist.data.viewmodel.ToDoViewModel
-import com.project.todolist.fragments.SharedViewModel
-import com.project.todolist.fragments.list.adapter.ListAdapter
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator
 import kotlinx.android.synthetic.main.fragment_list.view.*
 

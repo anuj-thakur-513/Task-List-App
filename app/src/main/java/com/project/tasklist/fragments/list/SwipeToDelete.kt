@@ -1,4 +1,4 @@
-package com.project.todolist.fragments.list
+package com.project.tasklist.fragments.list
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

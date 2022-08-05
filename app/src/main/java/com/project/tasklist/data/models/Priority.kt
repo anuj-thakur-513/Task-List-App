@@ -1,4 +1,4 @@
-package com.project.todolist.data.models
+package com.project.tasklist.data.models
 
 // this class is a datatype for Priority
 enum class Priority {

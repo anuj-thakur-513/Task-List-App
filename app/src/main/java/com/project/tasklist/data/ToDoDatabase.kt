@@ -1,11 +1,11 @@
-package com.project.todolist.data
+package com.project.tasklist.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.project.todolist.data.models.ToDoData
+import com.project.tasklist.data.models.ToDoData
 
 @Database(entities = [ToDoData::class], version = 1, exportSchema = true)
 @TypeConverters(Converter::class)

@@ -1,11 +1,11 @@
-package com.project.todolist
+package com.project.tasklist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.project.todolist.R
 
 class MainActivity : AppCompatActivity() {
 

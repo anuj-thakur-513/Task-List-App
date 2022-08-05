@@ -1,7 +1,7 @@
-package com.project.todolist.fragments.list.adapter
+package com.project.tasklist.fragments.list.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.project.todolist.data.models.ToDoData
+import com.project.tasklist.data.models.ToDoData
 
 class ToDoDiffUtil(private val oldList: List<ToDoData>, private val newList: List<ToDoData>) :
     DiffUtil.Callback() {

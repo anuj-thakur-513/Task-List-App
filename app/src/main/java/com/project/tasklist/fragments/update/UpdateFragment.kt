@@ -1,4 +1,4 @@
-package com.project.todolist.fragments.update
+package com.project.tasklist.fragments.update
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.project.todolist.R
-import com.project.todolist.data.models.ToDoData
-import com.project.todolist.data.viewmodel.ToDoViewModel
-import com.project.todolist.fragments.SharedViewModel
+import com.project.tasklist.R
+import com.project.tasklist.data.models.ToDoData
+import com.project.tasklist.data.viewmodel.ToDoViewModel
+import com.project.tasklist.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 

@@ -1,4 +1,4 @@
-package com.project.todolist.fragments.add
+package com.project.tasklist.fragments.add
 
 import android.os.Bundle
 import android.view.*
@@ -6,10 +6,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.project.todolist.R
-import com.project.todolist.data.models.ToDoData
-import com.project.todolist.data.viewmodel.ToDoViewModel
-import com.project.todolist.fragments.SharedViewModel
+import com.project.tasklist.R
+import com.project.tasklist.data.models.ToDoData
+import com.project.tasklist.data.viewmodel.ToDoViewModel
+import com.project.tasklist.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 

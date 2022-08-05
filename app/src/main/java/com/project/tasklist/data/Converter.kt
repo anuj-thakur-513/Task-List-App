@@ -1,7 +1,7 @@
-package com.project.todolist.data
+package com.project.tasklist.data
 
 import androidx.room.TypeConverter
-import com.project.todolist.data.models.Priority
+import com.project.tasklist.data.models.Priority
 
 class Converter {
     // TypeConverter annotation is added here to tell ROOM that this function is used for type

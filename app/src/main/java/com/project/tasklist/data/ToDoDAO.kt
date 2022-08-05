@@ -1,8 +1,8 @@
-package com.project.todolist.data
+package com.project.tasklist.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.project.todolist.data.models.ToDoData
+import com.project.tasklist.data.models.ToDoData
 
 // this class is responsible for defining the methods to access the database
 @Dao

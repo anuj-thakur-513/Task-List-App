@@ -1,12 +1,12 @@
-package com.project.todolist.data.viewmodel
+package com.project.tasklist.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.project.todolist.data.ToDoDatabase
-import com.project.todolist.data.models.ToDoData
-import com.project.todolist.data.repository.ToDoRepository
+import com.project.tasklist.data.ToDoDatabase
+import com.project.tasklist.data.models.ToDoData
+import com.project.tasklist.data.repository.ToDoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

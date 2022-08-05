@@ -1,4 +1,4 @@
-package com.project.todolist.fragments.list.adapter
+package com.project.tasklist.fragments.list.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,10 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.project.todolist.R
-import com.project.todolist.data.models.Priority
-import com.project.todolist.data.models.ToDoData
-import com.project.todolist.fragments.list.ListFragmentDirections
+import com.project.tasklist.R
+import com.project.tasklist.data.models.Priority
+import com.project.tasklist.data.models.ToDoData
+import com.project.tasklist.fragments.list.ListFragmentDirections
 import kotlinx.android.synthetic.main.row_layout.view.*
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {

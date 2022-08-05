@@ -1,9 +1,8 @@
-package com.project.todolist.data.models
+package com.project.tasklist.data.models
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.project.todolist.data.models.Priority
 import kotlinx.android.parcel.Parcelize
 
 // this class basically represents columns inside the database

@@ -15,5 +15,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "ToDo List"
+rootProject.name = "Task List"
 include ':app'
