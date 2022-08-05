@@ -17,6 +17,9 @@ import com.project.todolist.data.models.ToDoData
 import com.project.todolist.data.viewmodel.ToDoViewModel
 import com.project.todolist.fragments.SharedViewModel
 import com.project.todolist.fragments.list.adapter.ListAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
+import jp.wasabeef.recyclerview.animators.ScaleInAnimator
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
@@ -40,10 +43,7 @@ class ListFragment : Fragment() {
 
         // setting the adapter and layout manager of recycler view
         val recyclerView = view.recyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        // calling the swipe to delete function
-        swipeToDelete(recyclerView)
+        setupRecyclerView(recyclerView)
 
         // we use the view model to get data from database and then observe it and send the data
         // received to the adapter to update the layout
@@ -65,6 +65,18 @@ class ListFragment : Fragment() {
         setHasOptionsMenu(true)
 
         return view
+    }
+
+    // function to setup the recycler view
+    private fun setupRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        // setting delete functionality
+        swipeToDelete(recyclerView)
+        // setting the animation
+        recyclerView.itemAnimator = ScaleInAnimator().apply {
+            addDuration = 300
+        }
     }
 
     // function which sets the menu in the fragment
@@ -128,7 +140,7 @@ class ListFragment : Fragment() {
         val snackBar =
             Snackbar.make(view, "Deleted: '${deletedItem.title}", Snackbar.LENGTH_SHORT)
 
-        snackBar.setAction("Undo"){
+        snackBar.setAction("Undo") {
             mToDoViewModel.insertData(deletedItem)
             adapter.notifyItemChanged(position)
         }

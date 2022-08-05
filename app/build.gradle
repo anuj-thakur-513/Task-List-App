@@ -67,4 +67,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    // RecyclerView Animations
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
 }
