@@ -90,8 +90,16 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_delete_all) {
-            confirmRemoval()
+        when (item.itemId) {
+            R.id.menu_delete_all -> confirmRemoval()
+
+            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(
+                this,
+                Observer { adapter.setData(it) })
+
+            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(
+                this,
+                Observer { adapter.setData(it) })
         }
         return super.onOptionsItemSelected(item)
     }
@@ -153,14 +161,14 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query != null){
+        if (query != null) {
             searchThroughDatabase(query)
         }
         return true
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        if (query != null){
+        if (query != null) {
             searchThroughDatabase(query)
         }
         return true
@@ -175,6 +183,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         // update the adapter
         mToDoViewModel.searchDatabase(searchQuery).observe(this, Observer { list ->
             list?.let {
+                // setting the data in the adapter according to the search query
                 adapter.setData(it)
             }
         })

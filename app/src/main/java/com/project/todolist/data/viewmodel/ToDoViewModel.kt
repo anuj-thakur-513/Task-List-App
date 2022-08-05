@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 
 class ToDoViewModel(application: Application) : AndroidViewModel(application) {
     private val toDoDAO = ToDoDatabase.getDatabase(application).toDoDao()
+    val sortByHighPriority: LiveData<List<ToDoData>>
+    val sortByLowPriority: LiveData<List<ToDoData>>
     private val repository: ToDoRepository
 
     val getAllData: LiveData<List<ToDoData>>
@@ -19,6 +21,8 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
     init {
         repository = ToDoRepository(toDoDAO)
         getAllData = repository.getAllData
+        sortByHighPriority = repository.sortByHighPriority
+        sortByLowPriority = repository.sortByLowPriority
     }
 
     fun insertData(toDoData: ToDoData) {

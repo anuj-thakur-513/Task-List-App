@@ -8,6 +8,8 @@ import com.project.todolist.data.models.ToDoData
 // data sources from the app
 class ToDoRepository(private val toDoDAO: ToDoDAO) {
     val getAllData: LiveData<List<ToDoData>> = toDoDAO.getAllData()
+    val sortByHighPriority: LiveData<List<ToDoData>> = toDoDAO.sortByHighPriority()
+    val sortByLowPriority: LiveData<List<ToDoData>> = toDoDAO.sortByLowPriority()
 
     suspend fun insertData(toDoData: ToDoData) {
         toDoDAO.insertData(toDoData)
@@ -28,4 +30,6 @@ class ToDoRepository(private val toDoDAO: ToDoDAO) {
     fun searchDatabase(searchQuery: String): LiveData<List<ToDoData>>{
         return toDoDAO.searchDatabase(searchQuery)
     }
+
+
 }
