@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.project.todolist.R
+import com.project.todolist.data.models.ToDoData
 import com.project.todolist.data.viewmodel.ToDoViewModel
 import com.project.todolist.fragments.SharedViewModel
 import com.project.todolist.fragments.list.adapter.ListAdapter
@@ -109,16 +111,27 @@ class ListFragment : Fragment() {
     private fun swipeToDelete(recyclerView: RecyclerView) {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
-                mToDoViewModel.deleteData(itemToDelete)
-                Toast.makeText(
-                    requireContext(),
-                    "Successfully Removed: '${itemToDelete.title}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                // delete item
+                val deletedItem = adapter.dataList[viewHolder.adapterPosition]
+                mToDoViewModel.deleteData(deletedItem)
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                // call the restore deleted data
+                restoreDeletedData(viewHolder.itemView, deletedItem, viewHolder.adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    // function to restore deleted data
+    private fun restoreDeletedData(view: View, deletedItem: ToDoData, position: Int) {
+        val snackBar =
+            Snackbar.make(view, "Deleted: '${deletedItem.title}", Snackbar.LENGTH_SHORT)
+
+        snackBar.setAction("Undo"){
+            mToDoViewModel.insertData(deletedItem)
+            adapter.notifyItemChanged(position)
+        }
+        snackBar.show()
     }
 }
