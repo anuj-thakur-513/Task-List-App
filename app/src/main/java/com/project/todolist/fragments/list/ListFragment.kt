@@ -19,6 +19,7 @@ class ListFragment : Fragment() {
 
     // access to view model
     private val mToDoViewModel: ToDoViewModel by viewModels()
+
     // list adapter for recycler view
     private val adapter: ListAdapter by lazy { ListAdapter() }
 

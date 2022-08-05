@@ -15,6 +15,7 @@ class UpdateFragment : Fragment() {
 
     // variable to receive the data from list fragment through safe args of navigation graph
     private val args by navArgs<UpdateFragmentArgs>()
+
     // variable for shared view model
     private val mSharedViewModel: SharedViewModel by viewModels()
 
@@ -30,7 +31,7 @@ class UpdateFragment : Fragment() {
 
         view.current_title_et.setText(args.currentItem.title)
         view.current_description_et.setText(args.currentItem.description)
-        view.current_priorities_spinner.setSelection(parsePriority(args.currentItem.priority))
+        view.current_priorities_spinner.setSelection(mSharedViewModel.parsePriorityToInt(args.currentItem.priority))
         // setting listener for the spinner
         view.current_priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
 
@@ -41,12 +42,5 @@ class UpdateFragment : Fragment() {
         inflater.inflate(R.menu.update_fragment_menu, menu)
     }
 
-    // function to parse the priority into Integer value in order to set the value using safe args
-    private fun parsePriority(priority: Priority): Int{
-        return when(priority){
-            Priority.HIGH -> 0
-            Priority.MEDIUM -> 1
-            Priority.LOW -> 2
-        }
-    }
+    
 }

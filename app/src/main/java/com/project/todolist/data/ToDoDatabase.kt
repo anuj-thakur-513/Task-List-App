@@ -9,27 +9,27 @@ import com.project.todolist.data.models.ToDoData
 
 @Database(entities = [ToDoData::class], version = 1, exportSchema = true)
 @TypeConverters(Converter::class)
-abstract class ToDoDatabase: RoomDatabase() {
+abstract class ToDoDatabase : RoomDatabase() {
     abstract fun toDoDao(): ToDoDAO
 
     // we create this as companion object because we do not want to create more than one instance
     // for our application
-    companion object{
+    companion object {
         // volatile annotation specifies that the variable is immediately made visible to other
         // threads
         @Volatile
         private var INSTANCE: ToDoDatabase? = null
 
-        fun getDatabase(context: Context): ToDoDatabase{
+        fun getDatabase(context: Context): ToDoDatabase {
             val tempInstance = INSTANCE
             // check if instance is not null then return the instance
-            if (tempInstance != null){
+            if (tempInstance != null) {
                 return tempInstance
             }
             // if there is no instance then we create instance inside synchronized block
             // this block is used because we don't want multiple threads to create multiple instances
             // hence only one thread can access this block at once
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ToDoDatabase::class.java,

@@ -10,7 +10,7 @@ import com.project.todolist.data.repository.ToDoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ToDoViewModel(application: Application): AndroidViewModel(application) {
+class ToDoViewModel(application: Application) : AndroidViewModel(application) {
     private val toDoDAO = ToDoDatabase.getDatabase(application).toDoDao()
     private val repository: ToDoRepository
 
@@ -21,9 +21,9 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
         getAllData = repository.getAllData
     }
 
-    fun insertData(toDoData: ToDoData){
+    fun insertData(toDoData: ToDoData) {
         // we launch a coroutine in order to add data in the background thread
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             repository.insertData(toDoData)
         }
     }
