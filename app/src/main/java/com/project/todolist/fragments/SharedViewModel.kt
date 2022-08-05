@@ -16,7 +16,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     // we are using mutable live data so that we can modify data later
     // if we don't want to change the data later, we use live data
-    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
+    // we set default value to false so we don't see the no_data views when the app starts
+    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
     // function to check if database is empty
     fun checkIfDatabaseEmpty(toDoData: List<ToDoData>){
