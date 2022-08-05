@@ -7,10 +7,21 @@ import android.widget.AdapterView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.project.todolist.R
 import com.project.todolist.data.models.Priority
+import com.project.todolist.data.models.ToDoData
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
+
+    // we are using mutable live data so that we can modify data later
+    // if we don't want to change the data later, we use live data
+    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
+
+    // function to check if database is empty
+    fun checkIfDatabaseEmpty(toDoData: List<ToDoData>){
+        emptyDatabase.value = toDoData.isEmpty()
+    }
 
     // listener to change the color of listener according to the priority chosen
     val listener: AdapterView.OnItemSelectedListener = object :

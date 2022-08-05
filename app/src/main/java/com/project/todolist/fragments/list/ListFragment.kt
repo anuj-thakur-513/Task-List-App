@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.todolist.R
 import com.project.todolist.data.viewmodel.ToDoViewModel
+import com.project.todolist.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
@@ -21,6 +22,9 @@ class ListFragment : Fragment() {
 
     // access to view model
     private val mToDoViewModel: ToDoViewModel by viewModels()
+
+    // variable for shared view model
+    private val mSharedViewModel: SharedViewModel by viewModels()
 
     // list adapter for recycler view
     private val adapter: ListAdapter by lazy { ListAdapter() }
@@ -40,7 +44,12 @@ class ListFragment : Fragment() {
         // we use the view model to get data from database and then observe it and send the data
         // received to the adapter to update the layout
         mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
+            mSharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
+        })
+        // using the shared view model to observe whether the data is empty or not
+        mSharedViewModel.emptyDatabase.observe(viewLifecycleOwner, Observer {
+            showEmptyDatabaseViews(it)
         })
 
         // onClick listener for the fab
@@ -81,5 +90,16 @@ class ListFragment : Fragment() {
         builder.setTitle("Delete Everything?")
         builder.setMessage("Are you sure you want to remove everything?")
         builder.create().show()
+    }
+
+    // function which shows empty database views
+    private fun showEmptyDatabaseViews(emptyDatabase: Boolean) {
+        if (emptyDatabase){
+            view?.no_data_imageView?.visibility = View.VISIBLE
+            view?.no_data_textView?.visibility = View.VISIBLE
+        } else {
+            view?.no_data_imageView?.visibility = View.INVISIBLE
+            view?.no_data_textView?.visibility = View.INVISIBLE
+        }
     }
 }
