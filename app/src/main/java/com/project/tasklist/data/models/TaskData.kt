@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 // this class basically represents columns inside the database
-@Entity(tableName = "todo_table")
+@Entity(tableName = "task_table")
 @Parcelize
-data class ToDoData(
+data class TaskData(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var title: String,

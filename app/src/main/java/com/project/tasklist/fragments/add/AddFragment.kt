@@ -7,15 +7,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.project.tasklist.R
-import com.project.tasklist.data.models.ToDoData
-import com.project.tasklist.data.viewmodel.ToDoViewModel
+import com.project.tasklist.data.models.TaskData
+import com.project.tasklist.data.viewmodel.TaskViewModel
 import com.project.tasklist.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
     // variable for view model
-    private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mTaskViewModel: TaskViewModel by viewModels()
     private val mSharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
@@ -55,14 +55,14 @@ class AddFragment : Fragment() {
 
         if (validation) {
             // insert data to database
-            val newData = ToDoData(
+            val newData = TaskData(
                 0,
                 mTitle,
                 mSharedViewModel.parsePriority(mPriority),
                 mDescription
             )
             // inserting data using view model
-            mToDoViewModel.insertData(newData)
+            mTaskViewModel.insertData(newData)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             // navigate back
             findNavController().navigate(R.id.action_addFragment_to_listFragment)

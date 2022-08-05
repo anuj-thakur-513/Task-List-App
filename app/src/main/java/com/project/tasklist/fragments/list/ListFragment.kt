@@ -11,11 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import com.google.android.material.snackbar.Snackbar
-import com.project.tasklist.data.models.ToDoData
-import com.project.tasklist.data.viewmodel.ToDoViewModel
+import com.project.tasklist.R
+import com.project.tasklist.data.models.TaskData
+import com.project.tasklist.data.viewmodel.TaskViewModel
 import com.project.tasklist.fragments.SharedViewModel
 import com.project.tasklist.fragments.list.adapter.ListAdapter
-import com.project.todolist.R
 import jp.wasabeef.recyclerview.animators.ScaleInAnimator
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     // access to view model
-    private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mTaskViewModel: TaskViewModel by viewModels()
 
     // variable for shared view model
     private val mSharedViewModel: SharedViewModel by viewModels()
@@ -44,7 +44,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         // we use the view model to get data from database and then observe it and send the data
         // received to the adapter to update the layout
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
+        mTaskViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
             mSharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
         })
@@ -91,11 +91,11 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         when (item.itemId) {
             R.id.menu_delete_all -> confirmRemoval()
 
-            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(
+            R.id.menu_priority_high -> mTaskViewModel.sortByHighPriority.observe(
                 this,
                 Observer { adapter.setData(it) })
 
-            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(
+            R.id.menu_priority_low -> mTaskViewModel.sortByLowPriority.observe(
                 this,
                 Observer { adapter.setData(it) })
         }
@@ -106,7 +106,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun confirmRemoval() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
-            mToDoViewModel.deleteAll()
+            mTaskViewModel.deleteAll()
             Toast.makeText(
                 requireContext(),
                 "Successfully Removed Everything!",
@@ -136,7 +136,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 // delete item
                 val deletedItem = adapter.dataList[viewHolder.adapterPosition]
-                mToDoViewModel.deleteData(deletedItem)
+                mTaskViewModel.deleteData(deletedItem)
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
                 // call the restore deleted data
                 restoreDeletedData(viewHolder.itemView, deletedItem)
@@ -147,12 +147,12 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     // function to restore deleted data
-    private fun restoreDeletedData(view: View, deletedItem: ToDoData) {
+    private fun restoreDeletedData(view: View, deletedItem: TaskData) {
         val snackBar =
             Snackbar.make(view, "Deleted: '${deletedItem.title}", Snackbar.LENGTH_SHORT)
 
         snackBar.setAction("Undo") {
-            mToDoViewModel.insertData(deletedItem)
+            mTaskViewModel.insertData(deletedItem)
         }
         snackBar.show()
     }
@@ -178,7 +178,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         // as we receive live data, hence we use observer to observe the live data and then
         // update the adapter
-        mToDoViewModel.searchDatabase(searchQuery).observe(this, Observer { list ->
+        mTaskViewModel.searchDatabase(searchQuery).observe(this, Observer { list ->
             list?.let {
                 // setting the data in the adapter according to the search query
                 adapter.setData(it)

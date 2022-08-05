@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.project.tasklist.R
 import com.project.tasklist.data.models.Priority
-import com.project.tasklist.data.models.ToDoData
-import com.project.todolist.R
+import com.project.tasklist.data.models.TaskData
+
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -20,8 +21,8 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
     // function to check if database is empty
-    fun checkIfDatabaseEmpty(toDoData: List<ToDoData>){
-        emptyDatabase.value = toDoData.isEmpty()
+    fun checkIfDatabaseEmpty(taskData: List<TaskData>){
+        emptyDatabase.value = taskData.isEmpty()
     }
 
     // listener to change the color of listener according to the priority chosen

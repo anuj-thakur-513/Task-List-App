@@ -4,43 +4,43 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.project.tasklist.data.ToDoDatabase
-import com.project.tasklist.data.models.ToDoData
-import com.project.tasklist.data.repository.ToDoRepository
+import com.project.tasklist.data.TaskDatabase
+import com.project.tasklist.data.models.TaskData
+import com.project.tasklist.data.repository.TaskRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ToDoViewModel(application: Application) : AndroidViewModel(application) {
-    private val toDoDAO = ToDoDatabase.getDatabase(application).toDoDao()
-    val sortByHighPriority: LiveData<List<ToDoData>>
-    val sortByLowPriority: LiveData<List<ToDoData>>
-    private val repository: ToDoRepository
+class TaskViewModel(application: Application) : AndroidViewModel(application) {
+    private val toDoDAO = TaskDatabase.getDatabase(application).taskDao()
+    val sortByHighPriority: LiveData<List<TaskData>>
+    val sortByLowPriority: LiveData<List<TaskData>>
+    private val repository: TaskRepository
 
-    val getAllData: LiveData<List<ToDoData>>
+    val getAllData: LiveData<List<TaskData>>
 
     init {
-        repository = ToDoRepository(toDoDAO)
+        repository = TaskRepository(toDoDAO)
         getAllData = repository.getAllData
         sortByHighPriority = repository.sortByHighPriority
         sortByLowPriority = repository.sortByLowPriority
     }
 
-    fun insertData(toDoData: ToDoData) {
+    fun insertData(taskData: TaskData) {
         // we launch a coroutine in order to add data in the background thread
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertData(toDoData)
+            repository.insertData(taskData)
         }
     }
 
-    fun updateData(toDoData: ToDoData){
+    fun updateData(taskData: TaskData){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateData(toDoData)
+            repository.updateData(taskData)
         }
     }
 
-    fun deleteData(toDoData: ToDoData){
+    fun deleteData(taskData: TaskData){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteData(toDoData)
+            repository.deleteData(taskData)
         }
     }
 
@@ -50,7 +50,7 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun searchDatabase(searchQuery: String): LiveData<List<ToDoData>>{
+    fun searchDatabase(searchQuery: String): LiveData<List<TaskData>>{
         return repository.searchDatabase(searchQuery)
     }
 }

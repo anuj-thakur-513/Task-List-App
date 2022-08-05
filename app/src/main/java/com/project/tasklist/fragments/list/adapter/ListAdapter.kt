@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.project.tasklist.R
 import com.project.tasklist.data.models.Priority
-import com.project.tasklist.data.models.ToDoData
+import com.project.tasklist.data.models.TaskData
 import com.project.tasklist.fragments.list.ListFragmentDirections
 import kotlinx.android.synthetic.main.row_layout.view.*
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
-    var dataList = emptyList<ToDoData>()
+    var dataList = emptyList<TaskData>()
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -67,12 +67,12 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     }
 
     // this function will be accessed from UI when user adds the data
-    fun setData(toDoData: List<ToDoData>) {
+    fun setData(taskData: List<TaskData>) {
         // using the diff util to calculate the difference and storing it in a variable
-        val toDoDiffUtil = ToDoDiffUtil(dataList, toDoData)
-        val toDoDiffResult = DiffUtil.calculateDiff(toDoDiffUtil)
-        this.dataList = toDoData
+        val taskDiffUtil = TaskDiffUtil(dataList, taskData)
+        val taskDiffResult = DiffUtil.calculateDiff(taskDiffUtil)
+        this.dataList = taskData
         // updating the adapter using the diff result
-        toDoDiffResult.dispatchUpdatesTo(this)
+        taskDiffResult.dispatchUpdatesTo(this)
     }
 }

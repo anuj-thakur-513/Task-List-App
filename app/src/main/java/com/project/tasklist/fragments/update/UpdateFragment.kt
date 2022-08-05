@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.project.tasklist.R
-import com.project.tasklist.data.models.ToDoData
-import com.project.tasklist.data.viewmodel.ToDoViewModel
+import com.project.tasklist.data.models.TaskData
+import com.project.tasklist.data.viewmodel.TaskViewModel
 import com.project.tasklist.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
@@ -25,7 +25,7 @@ class UpdateFragment : Fragment() {
     private val mSharedViewModel: SharedViewModel by viewModels()
 
     // variable to get access to the view model in order to update the database
-    private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mTaskViewModel: TaskViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,13 +66,13 @@ class UpdateFragment : Fragment() {
 
         val validation = mSharedViewModel.verifyDataFromUser(title, description)
         if (validation) {
-            val updatedItem = ToDoData(
+            val updatedItem = TaskData(
                 args.currentItem.id,
                 title,
                 mSharedViewModel.parsePriority(getPriority),
                 description
             )
-            mToDoViewModel.updateData(updatedItem)
+            mTaskViewModel.updateData(updatedItem)
             Toast.makeText(requireContext(), "Successfully Updated!", Toast.LENGTH_SHORT).show()
 
             // navigate back to the list fragment
@@ -88,7 +88,7 @@ class UpdateFragment : Fragment() {
     private fun confirmItemRemoval() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
-            mToDoViewModel.deleteData(args.currentItem)
+            mTaskViewModel.deleteData(args.currentItem)
             Toast.makeText(
                 requireContext(),
                 "Successfully Removed: ${args.currentItem.title}",

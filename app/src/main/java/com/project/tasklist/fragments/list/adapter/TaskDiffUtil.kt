@@ -1,9 +1,9 @@
 package com.project.tasklist.fragments.list.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.project.tasklist.data.models.ToDoData
+import com.project.tasklist.data.models.TaskData
 
-class ToDoDiffUtil(private val oldList: List<ToDoData>, private val newList: List<ToDoData>) :
+class TaskDiffUtil(private val oldList: List<TaskData>, private val newList: List<TaskData>) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
