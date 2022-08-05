@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.google.android.material.snackbar.Snackbar
 import com.project.todolist.R
 import com.project.todolist.data.models.ToDoData
@@ -69,7 +67,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     // function to setup the recycler view
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         // setting delete functionality
         swipeToDelete(recyclerView)
         // setting the animation
