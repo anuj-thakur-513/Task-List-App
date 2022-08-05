@@ -46,7 +46,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     // function to convert string to priority object
-    fun parsePriorityToString(priority: String): Priority {
+    fun parsePriority(priority: String): Priority {
         return when (priority) {
             "High Priority" -> {
                 Priority.HIGH

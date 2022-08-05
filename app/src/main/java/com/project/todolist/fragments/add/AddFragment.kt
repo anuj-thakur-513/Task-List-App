@@ -58,7 +58,7 @@ class AddFragment : Fragment() {
             val newData = ToDoData(
                 0,
                 mTitle,
-                mSharedViewModel.parsePriorityToString(mPriority),
+                mSharedViewModel.parsePriority(mPriority),
                 mDescription
             )
             // inserting data using view model

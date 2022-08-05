@@ -2,12 +2,16 @@ package com.project.todolist.fragments.update
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.project.todolist.R
-import com.project.todolist.data.models.Priority
+import com.project.todolist.data.models.ToDoData
+import com.project.todolist.data.viewmodel.ToDoViewModel
 import com.project.todolist.fragments.SharedViewModel
+import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 
 
@@ -18,6 +22,9 @@ class UpdateFragment : Fragment() {
 
     // variable for shared view model
     private val mSharedViewModel: SharedViewModel by viewModels()
+
+    // variable to get access to the view model in order to update the database
+    private val mToDoViewModel: ToDoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,5 +49,35 @@ class UpdateFragment : Fragment() {
         inflater.inflate(R.menu.update_fragment_menu, menu)
     }
 
-    
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_save) {
+            updateItem()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    // function to update the task changes
+    private fun updateItem() {
+        val title = current_title_et.text.toString()
+        val description = current_description_et.text.toString()
+        val getPriority = current_priorities_spinner.selectedItem.toString()
+
+        val validation = mSharedViewModel.verifyDataFromUser(title, description)
+        if (validation) {
+            val updatedItem = ToDoData(
+                args.currentItem.id,
+                title,
+                mSharedViewModel.parsePriority(getPriority),
+                description
+            )
+            mToDoViewModel.updateData(updatedItem)
+            Toast.makeText(requireContext(), "Successfully Updated!", Toast.LENGTH_SHORT).show()
+
+            // navigate back to the list fragment
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        } else {
+            Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
 }

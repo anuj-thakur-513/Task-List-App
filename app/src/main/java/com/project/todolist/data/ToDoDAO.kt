@@ -1,10 +1,7 @@
 package com.project.todolist.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.project.todolist.data.models.ToDoData
 
 // this class is responsible for defining the methods to access the database
@@ -18,4 +15,7 @@ interface ToDoDAO {
     // here we just ignore that
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ToDoData)
+
+    @Update
+    suspend fun updateData(toDoData: ToDoData)
 }
