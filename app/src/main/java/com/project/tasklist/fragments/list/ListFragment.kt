@@ -149,7 +149,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     // function to restore deleted data
     private fun restoreDeletedData(view: View, deletedItem: TaskData) {
         val snackBar =
-            Snackbar.make(view, "Deleted: '${deletedItem.title}", Snackbar.LENGTH_SHORT)
+            Snackbar.make(view, "Deleted: '${deletedItem.title}'", Snackbar.LENGTH_SHORT)
 
         snackBar.setAction("Undo") {
             mTaskViewModel.insertData(deletedItem)
