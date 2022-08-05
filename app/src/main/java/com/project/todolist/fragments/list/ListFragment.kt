@@ -4,17 +4,17 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.project.todolist.R
 import com.project.todolist.data.viewmodel.ToDoViewModel
 import com.project.todolist.fragments.SharedViewModel
+import com.project.todolist.fragments.list.adapter.ListAdapter
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
@@ -40,6 +40,8 @@ class ListFragment : Fragment() {
         val recyclerView = view.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        // calling the swipe to delete function
+        swipeToDelete(recyclerView)
 
         // we use the view model to get data from database and then observe it and send the data
         // received to the adapter to update the layout
@@ -69,7 +71,7 @@ class ListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_delete_all){
+        if (item.itemId == R.id.menu_delete_all) {
             confirmRemoval()
         }
         return super.onOptionsItemSelected(item)
@@ -94,12 +96,29 @@ class ListFragment : Fragment() {
 
     // function which shows empty database views
     private fun showEmptyDatabaseViews(emptyDatabase: Boolean) {
-        if (emptyDatabase){
+        if (emptyDatabase) {
             view?.no_data_imageView?.visibility = View.VISIBLE
             view?.no_data_textView?.visibility = View.VISIBLE
         } else {
             view?.no_data_imageView?.visibility = View.INVISIBLE
             view?.no_data_textView?.visibility = View.INVISIBLE
         }
+    }
+
+    // function for delete with swipe
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeToDeleteCallback = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
+                mToDoViewModel.deleteData(itemToDelete)
+                Toast.makeText(
+                    requireContext(),
+                    "Successfully Removed: '${itemToDelete.title}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 }
